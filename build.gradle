@@ -1,0 +1,42 @@
+buildscript {
+  repositories {
+    mavenCentral()
+  }
+  dependencies {
+    classpath (group: 'com.google.protobuf', name: 'protobuf-gradle-plugin', version: protobufPluginVersion)
+  }
+}
+apply plugin: 'java'
+apply plugin: 'com.google.protobuf'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+// dependency versions
+String junitVersion = '4.12'
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  compile (group: 'io.grpc', name: 'grpc-netty', version: grpcVersion)
+  compile (group: 'io.grpc', name: 'grpc-protobuf', version: grpcVersion)
+  compile (group: 'io.grpc', name: 'grpc-stub', version: grpcVersion)
+  testCompile (group: 'junit', name: 'junit', version: junitVersion)
+}
+
+protobuf {
+  protoc {
+    artifact = "com.google.protobuf:protoc:${protocVersion}"
+  }
+  plugins {
+    grpc {
+      artifact = "io.grpc:protoc-gen-grpc-java:${grpcVersion}"
+    }
+  }
+  generateProtoTasks {
+    all()*.plugins {
+      grpc {}
+    }
+  }
+}
