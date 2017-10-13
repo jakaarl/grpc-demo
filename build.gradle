@@ -14,6 +14,16 @@ targetCompatibility = 1.8
 // dependency versions
 String junitVersion = '4.12'
 
+// regrettably, protobuf/grpc plugin magic doesn't "just work" 
+sourceSets {
+  main {
+    java {
+      srcDirs "${buildDir}/generated/source/proto/main/grpc"
+      srcDirs "${buildDir}/generated/source/proto/main/java"
+    }
+  }
+}
+
 repositories {
   mavenCentral()
 }

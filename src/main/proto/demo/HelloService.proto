@@ -1,0 +1,10 @@
+syntax = "proto3";
+package demo;
+import "demo/HelloRequest.proto";
+import "demo/HelloResponse.proto";
+
+service HelloService {
+
+  rpc SayHello(HelloRequest) returns (HelloResponse) {}
+
+}
